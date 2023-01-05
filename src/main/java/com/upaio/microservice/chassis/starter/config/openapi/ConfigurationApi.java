@@ -24,7 +24,7 @@ public class ConfigurationApi {
     private String description;
 
     @Bean
-    public OpenApiCustomiser OpenApiDocumentation(){
+    public OpenApiCustomiser openApiDocumentation(){
         return openApi -> openApi
                 .info(new Info().title(title).description(description).version(version)).getPaths()
                 .values().forEach(pathItem -> pathItem.readOperations().forEach(operation -> {
