@@ -35,6 +35,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=upa-io_microservice-chassis-starter
+      - name: Get Version
+        uses: ./
+        id: getVersion
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v3.0.0
         env:
@@ -43,7 +46,4 @@ jobs:
         # Basic authentication credentials
           JF_USER: ${{ secrets.JF_USER }}
           JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
-      - run: |
-          jf rt bce
-          jf rt bag
-          jf rt bp
+      - run: jf rt u --url ${{ secrets.JF_URL }} --user ${{ secrets.JF_USER }} --password ${{ secrets.JF_PASSWORD }} "/*.jar" upaio-libs-release/
