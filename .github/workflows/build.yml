@@ -35,12 +35,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=upa-io_microservice-chassis-starter
-      - name: Connect to JFrog Cloud
-        uses: jfrog/setup-jfrog-cli@v3
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v3.0.0
         env:
         # JFrog platform url (for example: https://acme.jfrog.io)
           JF_URL: ${{ secrets.JF_URL }}
         # Basic authentication credentials
           JF_USER: ${{ secrets.JF_USER }}
           JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
-        run: jf rt ping
+      - run: jf rt ping
